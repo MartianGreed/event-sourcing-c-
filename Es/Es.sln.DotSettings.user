@@ -1,0 +1,18 @@
+﻿<wpf:ResourceDictionary xml:space="preserve" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:s="clr-namespace:System;assembly=mscorlib" xmlns:ss="urn:shemas-jetbrains-com:settings-storage-xaml" xmlns:wpf="http://schemas.microsoft.com/winfx/2006/xaml/presentation">
+	<s:String x:Key="/Default/Environment/UnitTesting/UnitTestSessionStore/Sessions/=4e2da51a_002D7adb_002D47d3_002Dab60_002D09111c78b86a/@EntryIndexedValue">&lt;SessionState ContinuousTestingMode="0" Name="SyncMessageBusTest" xmlns="urn:schemas-jetbrains-com:jetbrains-ut-session"&gt;
+  &lt;TestAncestor&gt;
+    &lt;TestId&gt;xUnit::17C3C0A2-A74F-4262-B695-DE3BAAD1F79A::.NETCoreApp,Version=v3.1::Es.SyncMessageBusTest&lt;/TestId&gt;
+    &lt;TestId&gt;xUnit::17C3C0A2-A74F-4262-B695-DE3BAAD1F79A::.NETCoreApp,Version=v3.1::Es.QueryBusTest&lt;/TestId&gt;
+    &lt;TestId&gt;xUnit::17C3C0A2-A74F-4262-B695-DE3BAAD1F79A::.NETCoreApp,Version=v3.1::Es.QueryHandlerRegistryTest&lt;/TestId&gt;
+    &lt;TestId&gt;xUnit::17C3C0A2-A74F-4262-B695-DE3BAAD1F79A::.NETCoreApp,Version=v3.1::Es.CommandHandlerRegistryTest.TestItCanAddAHandler&lt;/TestId&gt;
+    &lt;TestId&gt;xUnit::17C3C0A2-A74F-4262-B695-DE3BAAD1F79A::.NETCoreApp,Version=v3.1::Es.CommandHandlerRegistryTest&lt;/TestId&gt;
+    &lt;TestId&gt;xUnit::17C3C0A2-A74F-4262-B695-DE3BAAD1F79A::.NETCoreApp,Version=v3.1::Es.CommandBusTest.TestItMustHaveRegisteredHandlersBeforeDispatch&lt;/TestId&gt;
+    &lt;TestId&gt;xUnit::17C3C0A2-A74F-4262-B695-DE3BAAD1F79A::.NETCoreApp,Version=v3.1::Es.CommandBusTest.TestItProperlyCallHandlers&lt;/TestId&gt;
+    &lt;TestId&gt;xUnit::17C3C0A2-A74F-4262-B695-DE3BAAD1F79A::.NETCoreApp,Version=v3.1::Es.Domain.IdentityTest.TestItCanGenerateUuid&lt;/TestId&gt;
+  &lt;/TestAncestor&gt;
+&lt;/SessionState&gt;</s:String>
+	<s:String x:Key="/Default/Environment/UnitTesting/UnitTestSessionStore/Sessions/=5a0fcc6c_002D1f7c_002D406d_002D8420_002D550a6334ddf7/@EntryIndexedValue">&lt;SessionState ContinuousTestingMode="0" IsActive="True" Name="TestItCanGenerateUuid" xmlns="urn:schemas-jetbrains-com:jetbrains-ut-session"&gt;
+  &lt;Project Location="/home/brujune/www/es/Es/Es" Presentation="&amp;lt;Es&amp;gt;" /&gt;
+&lt;/SessionState&gt;</s:String>
+	
+	</wpf:ResourceDictionary>
