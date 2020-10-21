@@ -6,10 +6,10 @@ namespace Es.Domain
     {
         public string Id { get; }
         public int Playhead { get; }
-        public string Payload { get; }
+        public IEvent Payload { get; }
         public DateTimeImmutable RecordedAt { get; }
 
-        public DomainMessage(string id, int playhead, string payload, DateTimeImmutable recordedAt)
+        public DomainMessage(string id, int playhead, IEvent payload, DateTimeImmutable recordedAt)
         {
             Id = id;
             Playhead = playhead;
@@ -17,7 +17,7 @@ namespace Es.Domain
             RecordedAt = recordedAt;
         }
         
-        public static DomainMessage RecordNow(string id, int playhead, string payload, DateTimeImmutable recordedAt)
+        public static DomainMessage RecordNow(string id, int playhead, IEvent payload, DateTimeImmutable recordedAt)
         {
             return new DomainMessage(id, playhead, payload, recordedAt);
         }

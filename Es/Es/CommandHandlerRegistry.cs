@@ -7,9 +7,13 @@ namespace Es
     {
         private Dictionary<string, List<ICommandHandler>> _handlers;
 
-        public CommandHandlerRegistry()
+        public CommandHandlerRegistry(IEnumerable<ICommandHandler> handlers)
         {
-            _handlers = new Dictionary<string, List<ICommandHandler>>(){};
+            _handlers = new Dictionary<string, List<ICommandHandler>>();
+            foreach (var handler in handlers)
+            {
+                AddHandler(handler.Supports(), handler);
+            }
         }
         
         public void AddHandler(string key, ICommandHandler handler)

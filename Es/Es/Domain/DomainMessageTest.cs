@@ -7,9 +7,9 @@ namespace Es.Domain
         [Fact]
         public void TestItCanRecordAnEvent()
         {
-            string id = Identity.Generate().ToString();
+            string id = Identity<InternalIdentity>.Generate().ToString();
             int playhead = 0;
-            string payload = "Dummy payload";
+            TestEvent payload = new TestEvent("Dummy payload");
             DateTimeImmutable date = DateTimeImmutable.Now();
             DomainMessage dm = DomainMessage.RecordNow(id, playhead, payload, date);
 

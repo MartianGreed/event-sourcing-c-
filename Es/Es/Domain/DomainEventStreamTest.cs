@@ -15,7 +15,7 @@ namespace Es.Domain
             Assert.Equal(3, _stream.Size());
             var append = DomainEventStream.FromKeyValuePair(new Dictionary<int, DomainMessage>()
             {
-                {3, new DomainMessage(Identity.Generate().ToString(), 3, "Dummy payload", DateTimeImmutable.Now())}
+                {3, new DomainMessage(Identity<InternalIdentity>.Generate().ToString(), 3, new TestEvent("Dummy payload"), DateTimeImmutable.Now())}
             });
             _stream.AppendStream(append);
             Assert.Equal(4, _stream.Size());
@@ -29,7 +29,7 @@ namespace Es.Domain
             Assert.Equal(3, _stream.Size());
             var append = DomainEventStream.FromKeyValuePair(new Dictionary<int, DomainMessage>()
             {
-                {2, new DomainMessage(Identity.Generate().ToString(), 2, "Dummy payload", DateTimeImmutable.Now())}
+                {2, new DomainMessage(Identity<InternalIdentity>.Generate().ToString(), 2, new TestEvent("Dummy payload"), DateTimeImmutable.Now())}
             });
             Assert.Throws<DuplicatedPlayheadException>(() => _stream.AppendStream(append));
         }
@@ -49,10 +49,20 @@ namespace Es.Domain
         {
             return DomainEventStream.FromKeyValuePair(new Dictionary<int, DomainMessage>()
             {
-                {0, new DomainMessage(Identity.Generate().ToString(), 0, "This is a dumb payload", DateTimeImmutable.Now())},
-                {1, new DomainMessage(Identity.Generate().ToString(), 1, "This is another dumb payload", DateTimeImmutable.Now())},
-                {2, new DomainMessage(Identity.Generate().ToString(), 2, "This is another dumbshit payload", DateTimeImmutable.Now())},
+                {0, new DomainMessage(Identity<InternalIdentity>.Generate().ToString(), 0, new TestEvent("This is a dumb payload"), DateTimeImmutable.Now())},
+                {1, new DomainMessage(Identity<InternalIdentity>.Generate().ToString(), 1, new TestEvent("This is another dumb payload"), DateTimeImmutable.Now())},
+                {2, new DomainMessage(Identity<InternalIdentity>.Generate().ToString(), 2, new TestEvent("This is another dumbshit payload"), DateTimeImmutable.Now())},
             });
+        }
+    }
+
+    class TestEvent : IEvent
+    {
+        public string Payload { get; }
+
+        public TestEvent(string payload)
+        {
+            Payload = payload;
         }
     }
 }

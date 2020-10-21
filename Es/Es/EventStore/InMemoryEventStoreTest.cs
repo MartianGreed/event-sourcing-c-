@@ -19,54 +19,54 @@ namespace Es.EventStore
         [Fact]
         public void TestItCanAppendToStore()
         {
-            IIdentity uuid = Identity.Generate();
+            Identity<InternalIdentity> uuid = Identity<InternalIdentity>.Generate();
             DomainEventStream stream = GenerateSimpleDomainEventStream();
-            _store.Append(uuid, stream);
+            _store.Append(uuid.ToString(), stream);
 
-            DomainEventStream des = _store.Load(uuid);
+            DomainEventStream des = _store.Load(uuid.ToString());
             Assert.Equal(3, des.Count());
         }
 
         [Fact]
         public void TestItThrowsAnExceptionIfItLoadsAnInexistantUuid()
         {
-            Assert.Throws<AggregateNotFoundException>(() => _store.Load(Identity.Generate()));
+            Assert.Throws<AggregateNotFoundException>(() => _store.Load(Identity<InternalIdentity>.Generate().ToString()));
         }
         
         [Fact]
         public void TestItCanFilterDomainEventStreamByPlayhead()
         {
-            IIdentity uuid = Identity.Generate();
+            Identity<InternalIdentity> uuid = Identity<InternalIdentity>.Generate();
             DomainEventStream stream = GenerateSimpleDomainEventStream();
-            _store.Append(uuid, stream);
+            _store.Append(uuid.ToString(), stream);
 
-            DomainEventStream des = _store.LoadFromPlayhead(uuid, 2);
+            DomainEventStream des = _store.LoadFromPlayhead(uuid.ToString(), 2);
             Assert.Single(des);
         }
 
         [Fact]
         public void TestItCanAppendToExistantEventStream()
         {
-            IIdentity uuid = Identity.Generate();
+            IIdentity<InternalIdentity> uuid = Identity<InternalIdentity>.Generate();
             DomainEventStream stream = GenerateSimpleDomainEventStream();
-            _store.Append(uuid, stream);
+            _store.Append(uuid.ToString(), stream);
             Assert.Equal(3, stream.Count());
 
-            _store.Append(uuid, DomainEventStream.FromKeyValuePair(new Dictionary<int, DomainMessage>()
+            _store.Append(uuid.ToString(), DomainEventStream.FromKeyValuePair(new Dictionary<int, DomainMessage>()
             {
                 {
                     3,
-                    new DomainMessage(Identity.Generate().ToString(), 3, "This is a dumb payload",
+                    new DomainMessage(Identity<InternalIdentity>.Generate().ToString(), 3, new TestEvent("This is a dumb payload"),
                         DateTimeImmutable.Now())
                 },
                 {
                     4,
-                    new DomainMessage(Identity.Generate().ToString(), 4, "This is another dumb payload",
+                    new DomainMessage(Identity<InternalIdentity>.Generate().ToString(), 4, new TestEvent("This is another dumb payload"),
                         DateTimeImmutable.Now())
                 },
                 {
                     5,
-                    new DomainMessage(Identity.Generate().ToString(), 5, "This is another dumbshit payload",
+                    new DomainMessage(Identity<InternalIdentity>.Generate().ToString(), 5, new TestEvent("This is another dumbshit payload"),
                         DateTimeImmutable.Now())
                 },
             }));
@@ -77,23 +77,23 @@ namespace Es.EventStore
         [Fact]
         public void TestItDoesNotCatchExceptionOnCorruptedEventStreamAppend()
         {
-            IIdentity uuid = Identity.Generate();
+            IIdentity<InternalIdentity> uuid = Identity<InternalIdentity>.Generate();
             DomainEventStream stream = GenerateSimpleDomainEventStream();
-            _store.Append(uuid, stream);
+            _store.Append(uuid.ToString(), stream);
             Assert.Equal(3, stream.Count());
             
             DomainEventStream stream2 = GenerateSimpleDomainEventStream();
 
-            Assert.Throws<DuplicatedPlayheadException>(() => _store.Append(uuid, stream2));
+            Assert.Throws<DuplicatedPlayheadException>(() => _store.Append(uuid.ToString(), stream2));
         }
 
         private DomainEventStream GenerateSimpleDomainEventStream()
         {
             return DomainEventStream.FromKeyValuePair(new Dictionary<int, DomainMessage>()
             {
-                {0, new DomainMessage(Identity.Generate().ToString(), 0, "This is a dumb payload", DateTimeImmutable.Now())},
-                {1, new DomainMessage(Identity.Generate().ToString(), 1, "This is another dumb payload", DateTimeImmutable.Now())},
-                {2, new DomainMessage(Identity.Generate().ToString(), 2, "This is another dumbshit payload", DateTimeImmutable.Now())},
+                {0, new DomainMessage(Identity<InternalIdentity>.Generate().ToString(), 0, new TestEvent("This is a dumb payload"), DateTimeImmutable.Now())},
+                {1, new DomainMessage(Identity<InternalIdentity>.Generate().ToString(), 1, new TestEvent("This is another dumb payload"), DateTimeImmutable.Now())},
+                {2, new DomainMessage(Identity<InternalIdentity>.Generate().ToString(), 2, new TestEvent("This is another dumbshit payload"), DateTimeImmutable.Now())},
             });
         }
     }

@@ -1,9 +1,16 @@
+using System.Collections.Generic;
+using Es.Domain;
+
 namespace Es
 {
     public interface IAggregateRoot
     {
         public string GetAggregateId();
 
-        public void GetUnCommitedEvents();
+        public DomainEventStream GetUnCommitedEvents();
+
+        public void InitializeState(DomainEventStream stream);
+        
+        public void Apply(IEvent e);
     }
 }

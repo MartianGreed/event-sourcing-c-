@@ -10,13 +10,18 @@ namespace Es
         public string Name;
     }
     
-    public class FakeCommandHandler : ICommandHandler
+    class FakeCommandHandler : ICommandHandler
     {
         public  void Handle(ICommand command)
         {
             FakeCommand cmd = (FakeCommand) command;
             
             Console.WriteLine(cmd.Name);
+        }
+
+        public string Supports()
+        {
+            return "FakeCommandHandler";
         }
     }
     

@@ -1,7 +1,9 @@
+using Es.Domain;
+
 namespace Es
 {
     public interface IEventBus
     {
-        void Dispatch<T>(IEvent e);
+        void Publish(DomainEventStream stream);
     }
 }

@@ -4,10 +4,10 @@ namespace Es
 {
     public interface IEventStore
     {
-        public DomainEventStream Load(IIdentity id);
+        public DomainEventStream Load(string id);
 
-        public void Append(IIdentity id, DomainEventStream eventStream);
+        public void Append(string id, DomainEventStream eventStream);
 
-        public DomainEventStream LoadFromPlayhead(IIdentity id, int playhead);
+        public DomainEventStream LoadFromPlayhead(string id, int playhead);
     }
 }

@@ -14,18 +14,36 @@ namespace Microsoft.Extensions.DependencyInjection
             {
                 services.AddTransient(typeof(IQueryHandler), t);
             });
+            
+            GetAllTypesOf<ICommandHandler>(AppDomain.CurrentDomain.GetAssemblies()).ToList().ForEach((t)=>
+            {
+                services.AddTransient(typeof(ICommandHandler), t);
+            });
 
-            services.AddScoped<IQueryHandlerRegistry>(provider =>
+            services.AddTransient<IQueryHandlerRegistry>(provider =>
             {
                 var service = new QueryHandlerRegistry(provider.GetServices<IQueryHandler>());
                 return service;
             });
+            services.AddTransient<ICommandHandlerRegistry>(provider =>
+            {
+                var service = new CommandHandlerRegistry(provider.GetServices<ICommandHandler>());
+                return service;
+            });
 
-            services.AddScoped<IQueryBus>(provider =>
+            services.AddTransient<IQueryBus>(provider =>
             {
                 var service = new QueryBus();
                 var registry = provider.GetRequiredService<IQueryHandlerRegistry>();
                 service.SetHandlerRegistry(registry as IQueryHandlerRegistry);
+                return service;
+            });
+            
+            services.AddTransient<ICommandBus>(provider =>
+            {
+                var service = new CommandBus();
+                var registry = provider.GetRequiredService<ICommandHandlerRegistry>();
+                service.SetHandlerRegistry(registry as ICommandHandlerRegistry);
                 return service;
             });
             

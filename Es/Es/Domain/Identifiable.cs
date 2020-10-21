@@ -2,11 +2,11 @@ using System;
 
 namespace Es.Domain
 {
-    public interface IIdentity
+    public interface IIdentity<out T> where T : class
     {
-        static IIdentity Generate() => throw new NotImplementedException();
+        static T Generate() => throw new NotImplementedException();
 
-        static IIdentity FromString(string uuid) => throw new NotImplementedException();
+        static T FromString(string uuid) => throw new NotImplementedException();
 
         public string ToString();
     }

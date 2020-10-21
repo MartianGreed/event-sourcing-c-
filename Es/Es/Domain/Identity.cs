@@ -1,24 +1,27 @@
 using System;
+using Microsoft.Extensions.DependencyInjection;
 
 namespace Es.Domain
 {
-    public class Identity : IIdentity
+    public class Identity<T> : IIdentity<T> where T : class
     {
         private readonly Guid _uuid;
 
-        private Identity(Guid uuid)
+        public Identity(Guid uuid)
         {
             _uuid = uuid;
         }
         
-        public static IIdentity Generate()
+        public static T Generate()
         {
-            return new Identity(Guid.NewGuid());
+            T t = (T) Activator.CreateInstance(typeof(T), Guid.NewGuid());
+            return t;
         }
 
-        public static IIdentity FromString(string uuid)
+        public static T FromString(string uuid)
         {
-            return new Identity(Guid.Parse(uuid));
+            T t = (T) Activator.CreateInstance(typeof(T), Guid.Parse(uuid));
+            return t;
         }
 
         public override string ToString()

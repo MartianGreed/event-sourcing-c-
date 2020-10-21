@@ -14,33 +14,33 @@ namespace Es.EventStore
             _events = new Dictionary<string, DomainEventStream>();
         }
 
-        public DomainEventStream Load(IIdentity id)
+        public DomainEventStream Load(string id)
         {
-            CheckEventStoreHasAggregate(id.ToString());
+            CheckEventStoreHasAggregate(id);
 
-            return _events[id.ToString()];
+            return _events[id];
         }
 
-        public void Append(IIdentity id, DomainEventStream eventStream)
+        public void Append(string id, DomainEventStream eventStream)
         {
             try
             {
-                CheckEventStoreHasAggregate(id.ToString());
+                CheckEventStoreHasAggregate(id);
             }
             catch (AggregateNotFoundException)
             {
-                _events[id.ToString()] = eventStream;
+                _events[id] = eventStream;
                 return;
             }
 
-            _events[id.ToString()] = _events[id.ToString()].AppendStream(eventStream);
+            _events[id] = _events[id].AppendStream(eventStream);
         }
 
-        public DomainEventStream LoadFromPlayhead(IIdentity id, int playhead)
+        public DomainEventStream LoadFromPlayhead(string id, int playhead)
         {
-            CheckEventStoreHasAggregate(id.ToString());
+            CheckEventStoreHasAggregate(id);
             
-            return DomainEventStream.FromKeyValuePair(_events[id.ToString()].Where(ds => playhead <= ds.Value.Playhead));
+            return DomainEventStream.FromKeyValuePair(_events[id].Where(ds => playhead <= ds.Value.Playhead));
         }
 
         private void CheckEventStoreHasAggregate(string id)

@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using Es.Exception;
 using Xunit;
 
@@ -10,7 +11,7 @@ namespace Es
 
         public CommandHandlerRegistryTest()
         {
-            _registry = new CommandHandlerRegistry();    
+            _registry = new CommandHandlerRegistry(new List<ICommandHandler>());    
         }
         
         [Fact]
@@ -36,19 +37,29 @@ namespace Es
         }
     }
 
-    public class AnotherCommandHandler : ICommandHandler
+    class AnotherCommandHandler : ICommandHandler
     {
         public void Handle(ICommand command)
         {
             Console.WriteLine(command);
         }
+
+        public string Supports()
+        {
+            return "CommandToHandle";
+        }
     }
 
-    public class YetAnotherCommandHandler : ICommandHandler
+    class YetAnotherCommandHandler : ICommandHandler
     {
         public void Handle(ICommand command)
         {
             Console.WriteLine(command);
+        }
+
+        public string Supports()
+        {
+            return "CommandToHandle";
         }
     }
 }
