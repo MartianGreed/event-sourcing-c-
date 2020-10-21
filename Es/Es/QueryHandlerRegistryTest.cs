@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using Es.Exception;
 using Xunit;
 
@@ -17,7 +18,7 @@ namespace Es
         [Fact]
         public void TestItCanAddHandler()
         {
-            _registry.AddHandler(new FakeQueryHandler());
+            _registry.AddHandler("FakeQuery", new FakeQueryHandler());
             Assert.Equal(1, _registry.Size());
         }
         
@@ -25,24 +26,24 @@ namespace Es
         public void TestItRegistersTheHandlerWithTheRightKey()
         {
             var handler = new FakeQueryHandler();
-            _registry.AddHandler(handler);
-            Assert.Same(handler, _registry.GetHandler("FakeQuery"));
+            _registry.AddHandler("FakeQuery", handler);
+            Assert.Same(handler, _registry.GetHandlers("FakeQuery").First());
         }
         
         [Fact]
         public void TestItThrowsAnExceptionIfNoHandlerFound()
         {
-            Assert.Throws<NoQueryHandlerRegisterForQuery>(() => _registry.GetHandler("AnotherFakeQuery"));
+            Assert.Throws<NoQueryHandlerRegisterForQuery>(() => _registry.GetHandlers("AnotherFakeQuery"));
         }
         
         [Fact]
         public void TestHasHandlerChecksOnKey()
         {
             var handler = new FakeQueryHandler();
-            _registry.AddHandler(handler);
+            _registry.AddHandler("FakeQuery", handler);
             
-            Assert.False(_registry.HasHandler("FakeQueryHandler"));
-            Assert.True(_registry.HasHandler("FakeQuery"));
+            Assert.False(_registry.HasHandlers("FakeQueryHandler"));
+            Assert.True(_registry.HasHandlers("FakeQuery"));
         }
     }
 

@@ -1,22 +1,25 @@
+using System;
 using System.Collections.Generic;
+using System.ComponentModel;
+using System.Linq;
 using Es.Exception;
 
 namespace Es
 {
-    public class CommandHandlerRegistry : IHandlerRegistry<ICommandHandler>
+    public class EventHandlerRegistry : IHandlerRegistry<IEventHandler>
     {
-        private Dictionary<string, List<ICommandHandler>> _handlers;
-
-        public CommandHandlerRegistry(IEnumerable<ICommandHandler> handlers)
+        private Dictionary<string, List<IEventHandler>> _handlers;
+        
+        public EventHandlerRegistry(IEnumerable<IEventHandler> handlers)
         {
-            _handlers = new Dictionary<string, List<ICommandHandler>>();
+            _handlers = new Dictionary<string, List<IEventHandler>>();
             foreach (var handler in handlers)
             {
                 AddHandler(handler.Supports(), handler);
             }
         }
         
-        public void AddHandler(string key, ICommandHandler handler)
+        public void AddHandler(string key, IEventHandler handler)
         {
             if (HasHandlers(key))
             {
@@ -24,7 +27,7 @@ namespace Es
                 return;
             }
             
-            _handlers.Add(key, new List<ICommandHandler>(){handler});
+            _handlers.Add(key, new List<IEventHandler>(){handler});
         }
 
         public bool HasHandlers(string key)
@@ -32,12 +35,8 @@ namespace Es
             return _handlers.ContainsKey(key);
         }
 
-        public List<ICommandHandler> GetHandlers(string key)
+        public List<IEventHandler> GetHandlers(string key)
         {
-            if (!this.HasHandlers(key))
-            {
-                throw new NoCommandyHandlerRegisterForCommand(key);
-            }
             return _handlers[key];
         }
 

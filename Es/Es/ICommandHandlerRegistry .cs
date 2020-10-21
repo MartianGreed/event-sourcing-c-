@@ -3,11 +3,8 @@ using System.Security;
 
 namespace Es
 {
-    public interface ICommandHandlerRegistry
+    public interface ICommandHandlerRegistry<T> : IHandlerRegistry<T> where T : IHandler
     {
-        public void AddHandler(string key, ICommandHandler handler);
-        public bool HasHandlers(string key);
-        public List<ICommandHandler> GetHandlers(string key);
-        public int Size();
+        
     }
 }

@@ -6,37 +6,44 @@ using Es.Exception;
 
 namespace Es
 {
-    public class QueryHandlerRegistry: IQueryHandlerRegistry
+    public class QueryHandlerRegistry: IHandlerRegistry<IQueryHandler>
     {
-        private Dictionary<string, IQueryHandler> _handlers;
+        private Dictionary<string, List<IQueryHandler>> _handlers;
 
         public QueryHandlerRegistry(IEnumerable<IQueryHandler> handlers)
         {
-            _handlers = new Dictionary<string, IQueryHandler>();
+            _handlers = new Dictionary<string, List<IQueryHandler>>();
             foreach (var handler in handlers)
             {
-                AddHandler(handler);
+                string key = TypeDescriptor.GetClassName(handler).Split(".").Last().Replace("Handler", "");
+                AddHandler(key, handler);
             }
         }
 
-        public void AddHandler(IQueryHandler handler)
+        public void AddHandler(string key, IQueryHandler handler)
         {    
-            _handlers.Add(TypeDescriptor.GetClassName(handler).Split(".").Last().Replace("Handler", ""), handler);
+            if (HasHandlers(key))
+            {
+                GetHandlers(key).Add(handler);
+                return;
+            }
+            
+            _handlers.Add(key, new List<IQueryHandler>(){handler});
         }
 
-        public bool HasHandler(string key)
+        public List<IQueryHandler> GetHandlers(string key)
         {
-            return _handlers.ContainsKey(key);
-        }
-
-        public IQueryHandler GetHandler(string key)
-        {
-            if (!this.HasHandler(key))
+            if (!HasHandlers(key))
             {
                 throw new NoQueryHandlerRegisterForQuery(key);
             }
 
             return _handlers[key];
+        }
+
+        public bool HasHandlers(string key)
+        {
+            return _handlers.ContainsKey(key);
         }
 
         public int Size()

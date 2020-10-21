@@ -19,8 +19,8 @@ namespace Es
         [Fact]
         public void TestItCanAskDataStore()
         {
-            var registryMock = new Mock<IQueryHandlerRegistry>();
-            registryMock.Setup(r => r.GetHandler("TestQuery")).Returns(new TestQueryHandler());
+            var registryMock = new Mock<IHandlerRegistry<IQueryHandler>>();
+            registryMock.Setup(r => r.GetHandlers("TestQuery")).Returns(new List<IQueryHandler>(){new TestQueryHandler()});
             
             QueryBus bus = new QueryBus();
             bus.SetHandlerRegistry(registryMock.Object);

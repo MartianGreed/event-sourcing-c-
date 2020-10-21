@@ -8,7 +8,7 @@ namespace Es
     public class CommandBus : ICommandBus
     {
         private bool _hasHandlers;
-        private ICommandHandlerRegistry _registry;
+        private IHandlerRegistry<ICommandHandler> _registry;
 
         public CommandBus()
         {
@@ -30,7 +30,7 @@ namespace Es
             }
         }
 
-        public void SetHandlerRegistry(ICommandHandlerRegistry registry)
+        public void SetHandlerRegistry(IHandlerRegistry<ICommandHandler> registry)
         {
             _hasHandlers = true;
             _registry = registry;

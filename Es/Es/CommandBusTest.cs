@@ -25,7 +25,7 @@ namespace Es
         {
             var command = new FakeCommand();
             
-            var registryMock = new Mock<ICommandHandlerRegistry>();
+            var registryMock = new Mock<IHandlerRegistry<ICommandHandler>>();
             var handlerMock1 = new Mock<ICommandHandler>();
             var handlerMock2 = new Mock<ICommandHandler>();
 

@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
 using Es.Exception;
@@ -8,7 +9,7 @@ namespace Es
     public class QueryBus : IQueryBus
     {
         private bool _hasHandlers;
-        private IQueryHandlerRegistry _registry;
+        private IHandlerRegistry<IQueryHandler> _registry;
 
         public QueryBus()
         {
@@ -23,12 +24,12 @@ namespace Es
             
             string handlerClass = GetHandlerClass(query);
 
-            IQueryHandler handler = _registry.GetHandler(handlerClass);
+            IQueryHandler handler = _registry.GetHandlers(handlerClass).First();
             
             return handler.Handle(query);
         }
 
-        public void SetHandlerRegistry(IQueryHandlerRegistry registry)
+        public void SetHandlerRegistry(IHandlerRegistry<IQueryHandler> registry)
         {
             _hasHandlers = true;
             _registry = registry;
