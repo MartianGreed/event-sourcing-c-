@@ -30,6 +30,16 @@ namespace Es.Domain
             return _date.ToString(DATE_FORMAT);
         }
 
+        public DateTime ToNative()
+        {
+            return _date;
+        }
+
+        public static DateTimeImmutable FromNative(DateTime date)
+        {
+            return new DateTimeImmutable(date);
+        }
+
         public static DateTimeImmutable FromString(string date)
         {
             return new DateTimeImmutable(

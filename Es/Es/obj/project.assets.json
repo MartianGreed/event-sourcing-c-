@@ -6428,19 +6428,19 @@
     ]
   },
   "packageFolders": {
-    "/home/brujune/.nuget/packages/": {}
+    "/Users/valentindosimont/.nuget/packages/": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "/home/brujune/www/es/Es/Es/Es.csproj",
+      "projectUniqueName": "/Users/valentindosimont/www/es/Es/Es/Es.csproj",
       "projectName": "Es",
-      "projectPath": "/home/brujune/www/es/Es/Es/Es.csproj",
-      "packagesPath": "/home/brujune/.nuget/packages/",
-      "outputPath": "/home/brujune/www/es/Es/Es/obj/",
+      "projectPath": "/Users/valentindosimont/www/es/Es/Es/Es.csproj",
+      "packagesPath": "/Users/valentindosimont/.nuget/packages/",
+      "outputPath": "/Users/valentindosimont/www/es/Es/Es/obj/",
       "projectStyle": "PackageReference",
       "configFilePaths": [
-        "/home/brujune/.nuget/NuGet/NuGet.Config"
+        "/Users/valentindosimont/.nuget/NuGet/NuGet.Config"
       ],
       "originalTargetFrameworks": [
         "netcoreapp3.1"
@@ -6510,7 +6510,7 @@
             "privateAssets": "all"
           }
         },
-        "runtimeIdentifierGraphPath": "/usr/share/dotnet/sdk/3.1.403/RuntimeIdentifierGraph.json"
+        "runtimeIdentifierGraphPath": "/usr/local/share/dotnet/sdk/3.1.403/RuntimeIdentifierGraph.json"
       }
     }
   }
