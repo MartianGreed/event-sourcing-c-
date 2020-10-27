@@ -5,7 +5,13 @@ namespace Es.Domain
 {
     public class Identity<T> : IIdentity<T> where T : class
     {
-        private readonly Guid _uuid;
+        protected Guid _uuid;
+
+        public Guid Id
+        {
+            get => _uuid; 
+            set => _uuid = value;
+        }
 
         public Identity(Guid uuid)
         {
